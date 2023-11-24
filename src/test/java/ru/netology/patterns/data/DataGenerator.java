@@ -21,16 +21,6 @@ public class DataGenerator {
             .log(LogDetail.ALL) // уровень логирования
             .build();
 
-//    @BeforeAll
-//    static void setUpAll() {
-//        given()
-//                .spec(requestSpec)
-//                .body(new RegistrationDto("vasya", "password", "active"))
-//                .when()
-//                .post("/api/system/users") // на какой путь относительно BaseUri отправляем запрос
-//                .then()
-//                .statusCode(200);
-//    }
     private static final Faker faker = new Faker(new Locale("en"));
 
     private DataGenerator() {
@@ -55,18 +45,15 @@ public class DataGenerator {
         return faker.internet().password();
     }
 
-    public static class Registration {
+    public static class Registration { // вложенный статичный класс для генерации случайного и зарегистрированного пользователя
         private Registration() {
         }
 
         public static RegistrationDto getUser(String status) {
-            // TODO: создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
             return new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
         }
 
         public static RegistrationDto getRegisteredUser(String status) {
-            // TODO: объявить переменную registeredUser и присвоить ей значение возвращённое getUser(status).
-            // Послать запрос на регистрацию пользователя с помощью вызова sendRequest(registeredUser)
             return sendRequest(getUser(status));
         }
     }
